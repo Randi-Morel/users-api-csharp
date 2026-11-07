@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:5080
+@userId = REEMPLAZAR_CON_ID_DEVUELTO_POR_POST
+
+### Consultar usuarios
+GET {{baseUrl}}/api/users
+
+### Crear usuario: copiar id de la respuesta para las siguientes peticiones
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{"name":"Randi Morel","email":"randi@example.com","age":25}
+
+### Consultar por ID
+GET {{baseUrl}}/api/users/{{userId}}
+
+### Actualizar
+PUT {{baseUrl}}/api/users/{{userId}}
+Content-Type: application/json
+
+{"name":"Randi Actualizado","email":"randi@example.com","age":26}
+
+### Validación: se espera 400
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{"name":"","email":"no-es-correo","age":0}
+
+### Correo duplicado: se espera 409 si ya creaste el primer usuario
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{"name":"Otro usuario","email":"RANDI@example.com","age":30}
+
+### Eliminar: se espera 204
+DELETE {{baseUrl}}/api/users/{{userId}}
